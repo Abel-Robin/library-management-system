@@ -28,6 +28,21 @@ Member data is stored separately in `members.csv` with the columns:
 
 Member IDs are auto-generated in the format `M001`, `M002`, etc.
 
+### V3 — Adds Borrowing, Returning, and Due Date Tracking
+Builds on V2 by linking members and books together, so the system can track who has borrowed what and when it's due — alongside all existing book and member features.
+
+**New features:**
+- Borrow Book
+- Return Book
+- View Due Books (availability tracking, flags overdue items)
+
+Borrowing records are stored separately in `transactions.csv` with the columns:
+`transaction_id, book_id, member_id, borrow_date, due_date, return_date, status`
+
+- Transaction IDs are auto-generated in the format `T001`, `T002`, etc.
+- Borrowing a book sets its status to `taken` in `database.csv`; returning it sets it back to `available`.
+- Each borrow has a 14-day due period; `View Due Books` shows all currently borrowed books and marks any past their due date as `OVERDUE`.
+
 ## Project Structure
 
 ```
@@ -43,6 +58,17 @@ Library-Management-System/
 │   ├── members.py       # Member management functions
 │   ├── database.csv     # Book records
 │   └── members.csv      # Member records
+│
+├── V3/
+│   ├── main.py           # Menu system (books + members + borrowing)
+│   ├── books.py          # Book management functions
+│   ├── members.py        # Member management functions
+│   ├── borrow.py         # Borrow/return/due date functions
+│   ├── database.csv      # Book records
+│   ├── members.csv       # Member records
+│   └── transactions.csv  # Borrow/return records
+│
+└── README.md
 ```
 
 ## How to Run
@@ -50,11 +76,11 @@ Library-Management-System/
 Navigate into the version folder you want to run and start `main.py`:
 
 ```bash
-cd V2
+cd V3
 python main.py
 ```
 
-## Menu (V2)
+## Menu (V3)
 
 ```
 ========================================
@@ -69,6 +95,9 @@ python main.py
 7. View Member
 8. Search Member
 9. Delete Member
+10. Borrow Book
+11. Return Book
+12. View Due Books
 0. Exit
 ```
 
